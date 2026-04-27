@@ -69,6 +69,21 @@ public class StockAnalyseService {
                 .anyMatch(p -> p.getNom().equalsIgnoreCase(nom));
     }
 
+    List <Produit> getProduitsParCategorie(List<Produit> produits, String categorie){
+        return produits
+                .stream()
+                .filter(p->p.getCategorie().equalsIgnoreCase(categorie))
+                .collect(Collectors.toList());
+    }
 
+
+    //MARGE MOYENNE :(marge brute/cout d achat)*100
+
+    double calculerMargeMoyenne(List<Produit> produits){
+        return produits
+                .stream()
+                .mapToDouble(p->(p.calculerMarge()/p.getPrixAchat())*100)
+                .sum();
+    }
 
 }
